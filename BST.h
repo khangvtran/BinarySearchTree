@@ -12,6 +12,7 @@
 # include <cstddef>
 # include <string>
 # include <assert.h>
+# include <algorithm>
 using namespace std;
 
 
@@ -51,14 +52,14 @@ private:
     //private helper function for postOrderPrint
     //recursively prints tree values in post order
 
-    void copyNode(Node* copy) const;
+    void copyNode(Node* copy);
     //recursive helper function to the copy constructor
 
     void freeNode(Node* root);
     //private helper function for the destructor
     //recursively frees the memory in the BST
 
-    bool searchNode(Node* root, bstdata data);
+    bool searchNode(Node* root, bstdata data) const;
     //recursive helper function to search
     //returns whether the value is found in the tree
 
@@ -85,6 +86,8 @@ private:
 
 public:
 
+
+
     /**constructors and destructor*/
 
     BST();
@@ -93,8 +96,11 @@ public:
     BST(const BST &bst);
     //copy constructor
 
-    //~BST();
+    ~BST();
     //deallocates the tree memory
+
+
+
 
     /**access functions*/
 
@@ -123,6 +129,8 @@ public:
     //returns whether the data is found in the tree
     //pre: !isEmpty()
 
+
+
     /**manipulation procedures*/
 
     void insert(bstdata data);
@@ -149,6 +157,61 @@ public:
 };
 
 
+
+
+
+/************ constructors and destructor ************/
+template <typename bstdata>
+BST<bstdata>::BST()
+{
+	root = NULL;
+}
+
+
+/*
+template <typename bstdata>
+BST<bstdata>::BST(const BST &bst)
+{
+	if (bst->root == NULL) root = NULL;
+	else
+	{
+		copyNode(bst->root);
+	}
+}
+
+template <typename bstdata>
+void BST<bstdata>::copyNode(Node* copy)
+{
+	if (copy == NULL) return;
+	else
+	{
+		Node* temp;
+		temp = new Node(copy->data);
+		temp->leftchild = new Node(copy->leftchild->data);
+		temp->rightchild = new Node(copy->rightchild->data);
+	}
+}
+*/
+
+template <typename bstdata>
+BST<bstdata>::~BST()
+{
+	freeNode(root);
+}
+
+template <typename bstdata>
+void BST<bstdata>::freeNode(Node* root)
+{
+	if (root == NULL) return;
+	else
+	{
+		freeNode(root->leftchild);
+		freeNode(root->rightchild);
+		delete root;
+	}
+}
+
+
 /************ manipulation procedures ************/
 
 template<typename bstdata>
@@ -156,7 +219,6 @@ void BST<bstdata>::insert(bstdata data)
 {
 	if (root == NULL) root = new Node(data);
 	else insertNode(root, data);
-
 }
 
 template<typename bstdata>
@@ -176,19 +238,147 @@ void BST<bstdata>::insertNode(Node* root, bstdata data)
 }
 
 
-/************ constructors and destructor ************/
-template <typename bstdata>
-BST<bstdata>::BST()
+
+template<typename bstdata>
+bool BST<bstdata>::search(bstdata data) const
 {
-	root = NULL;
+	assert(!isEmpty());
+	if (root->data == data) return true;
+	else return searchNode(root, data);
+}
+
+template<typename bstdata>
+bool BST<bstdata>::searchNode(Node* root, bstdata data) const
+{
+	if (root->data == data) return true;
+	else if (root->data > data)
+	{
+		if (root->leftchild == NULL) return false;
+		else return searchNode(root->leftchild, data);
+	}
+	else
+	{
+		if (root->rightchild == NULL) return false;
+		else return searchNode(root->rightchild, data);
+	}
+}
+
+
+/************ access functions ************/
+
+template <typename bstdata>
+bool BST<bstdata>::isEmpty() const
+{
+	return (getSize() == 0);
 }
 
 
 
+
+template<typename bstdata>
+bstdata BST<bstdata>::getRoot() const
+{
+	assert(!isEmpty());
+	return root->data;
+}
+
+
+
+template<typename bstdata>
+int BST<bstdata>::getSize() const
+{
+	int size = 0;
+	getSize(root, size);
+	return size;
+}
+
+template <typename bstdata>
+void BST<bstdata>::getSize(Node* root, int& size) const
+{
+	if (root == NULL) return;
+	else
+	{
+		size++;
+		getSize(root->leftchild, size);
+		getSize(root->rightchild, size);
+	}
+}
+
+
+
+template <typename bstdata>
+int BST<bstdata>::getHeight() const
+{
+	cout << "check here" << endl;
+	return getHeight(root);
+}
+
+template <typename bstdata>
+int BST<bstdata>::getHeight(Node* root) const
+{
+	if (root == NULL) return -1;
+	else
+	{
+		if (getHeight(root->leftchild) >= getHeight(root->rightchild)) return 1+getHeight(root->leftchild);
+		else return 1+getHeight(root->rightchild);
+	}
+}
+
+/*
+template <typename bstdata>
+int BST<bstdata>::getHeight(Node* root) const
+{
+	if (root == NULL)
+	{
+		return -1;
+	}
+	else
+	{
+		return 1+max(getHeight(root->leftchild), getHeight(root->rightchild));
+	}
+}
+*/
+
+
+
+
+template <typename bstdata>
+bstdata BST<bstdata>::minimum() const
+{
+	assert(!isEmpty());
+	return minimum(root);
+}
+
+template <typename bstdata>
+bstdata BST<bstdata>::minimum(Node* root) const
+{
+	if (root->leftchild == NULL) return root->data;
+	else return minimum(root->leftchild);
+}
+
+
+
+
+template <typename bstdata>
+bstdata BST<bstdata>::maximum() const
+{
+	assert(!isEmpty());
+	return maximum(root);
+
+}
+
+template <typename bstdata>
+bstdata BST<bstdata>::maximum(Node* root) const
+{
+	if (root->rightchild == NULL) return root->data;
+	else return maximum(root->rightchild);
+}
+
+
+
+
+
 /************ additional functions ************/
-
-
-
 
 template <typename bstdata>       // PUBLIC
 void BST<bstdata>::inOrderPrint(ostream& out) const
@@ -210,6 +400,14 @@ void BST<bstdata>::inOrderPrint(ostream& out, Node* root) const
 
 
 
+
+template <typename bstdata>
+void BST<bstdata>::preOrderPrint(ostream& out) const
+{
+	preOrderPrint(out, root);
+	cout << endl;
+}
+
 template <typename bstdata>
 void BST<bstdata>::preOrderPrint(ostream& out, Node* root) const
 {
@@ -222,10 +420,12 @@ void BST<bstdata>::preOrderPrint(ostream& out, Node* root) const
 	}
 }
 
+
+
 template <typename bstdata>
-void BST<bstdata>::preOrderPrint(ostream& out) const
+void BST<bstdata>::postOrderPrint(ostream& out) const
 {
-	preOrderPrint(out, root);
+	postOrderPrint(out, root);
 	cout << endl;
 }
 
@@ -241,12 +441,7 @@ void BST<bstdata>::postOrderPrint(ostream& out, Node* root) const
 	}
 }
 
-template <typename bstdata>
-void BST<bstdata>::postOrderPrint(ostream& out) const
-{
-	postOrderPrint(out, root);
-	cout << endl;
-}
+
 
 
 #endif /* BST_H_ */
