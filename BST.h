@@ -168,14 +168,15 @@ BST<bstdata>::BST()
 }
 
 
-/*
+
 template <typename bstdata>
 BST<bstdata>::BST(const BST &bst)
 {
-	if (bst->root == NULL) root = NULL;
+	if (bst.root == NULL) root = NULL;        // WHAT'S THE DIFFERENCE BETWEEN USING . AND ->
 	else
 	{
-		copyNode(bst->root);
+		//root = new Node(bst.getRoot());
+		copyNode(bst.root);
 	}
 }
 
@@ -185,13 +186,14 @@ void BST<bstdata>::copyNode(Node* copy)
 	if (copy == NULL) return;
 	else
 	{
-		Node* temp;
-		temp = new Node(copy->data);
-		temp->leftchild = new Node(copy->leftchild->data);
-		temp->rightchild = new Node(copy->rightchild->data);
+		insert(copy->data);
+		copyNode(copy->leftchild);
+		copyNode(copy->rightchild);
 	}
 }
-*/
+
+
+
 
 template <typename bstdata>
 BST<bstdata>::~BST()
@@ -210,6 +212,8 @@ void BST<bstdata>::freeNode(Node* root)
 		delete root;
 	}
 }
+
+
 
 
 /************ manipulation procedures ************/
@@ -376,6 +380,20 @@ bstdata BST<bstdata>::maximum(Node* root) const
 
 
 
+
+template <typename bstdata>
+void BST<bstdata>::remove(bstdata data)
+{
+	assert(!isEmpty());
+	assert(search(data));      // isEmpty() is actually already enforced in this
+	deleteNode(root, data);
+}
+
+template <class bstdata>
+typename BST<bstdata>::Node* BST<bstdata>::deleteNode(Node* root, bstdata data)
+{
+
+}
 
 
 /************ additional functions ************/

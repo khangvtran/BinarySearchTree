@@ -42,6 +42,11 @@ int main()
 	cout << bst1.getRoot() << endl; // test getRoot
 	cout << bst1.getHeight() << endl;// test getHeight()
 
+	bst1.inOrderPrint(cout);
+	BST<int> bst2(bst1);
+	bst2.inOrderPrint(cout);
+	cout << bst2.getRoot() << endl;
+
 	//BST<int> bst2(bst1);
 
 	return 0;
