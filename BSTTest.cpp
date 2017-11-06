@@ -40,14 +40,23 @@ int main()
 	cout << bst1.minimum() << endl; // test maximum
 	cout << bst1.maximum() << endl; // test minimum
 	cout << bst1.getRoot() << endl; // test getRoot
-	cout << bst1.getHeight() << endl;// test getHeight()
+	cout << bst1.getHeight() << endl; // test getHeight()
 
-	bst1.inOrderPrint(cout);
+	bst1.inOrderPrint(cout);      // test copy constructor
 	BST<int> bst2(bst1);
 	bst2.inOrderPrint(cout);
 	cout << bst2.getRoot() << endl;
 
-	//BST<int> bst2(bst1);
+	cout << "********************" << endl;  // test deleteNode
+	//bst1.remove(20);
+	//bst1.inOrderPrint(cout);
+	//bst1.remove(13);
+	//bst1.inOrderPrint(cout);
+	//bst1.remove(7);
+	//bst1.inOrderPrint(cout);
+	bst1.remove(15);
+	bst1.inOrderPrint(cout);
+
 
 	return 0;
 }

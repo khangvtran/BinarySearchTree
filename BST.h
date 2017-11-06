@@ -175,7 +175,7 @@ BST<bstdata>::BST(const BST &bst)
 	if (bst.root == NULL) root = NULL;        // WHAT'S THE DIFFERENCE BETWEEN USING . AND ->
 	else
 	{
-		//root = new Node(bst.getRoot());
+		root = new Node(bst.getRoot());
 		copyNode(bst.root);
 	}
 }
@@ -243,6 +243,7 @@ void BST<bstdata>::insertNode(Node* root, bstdata data)
 
 
 
+
 template<typename bstdata>
 bool BST<bstdata>::search(bstdata data) const
 {
@@ -266,6 +267,55 @@ bool BST<bstdata>::searchNode(Node* root, bstdata data) const
 		else return searchNode(root->rightchild, data);
 	}
 }
+
+
+
+
+template <typename bstdata>
+void BST<bstdata>::remove(bstdata data)
+{
+	assert(!isEmpty());
+	assert(search(data));      // isEmpty() is actually already enforced in this
+	deleteNode(root, data);
+}
+
+template <class bstdata>
+typename BST<bstdata>::Node* BST<bstdata>::deleteNode(Node* root, bstdata data)
+{
+	if (root == NULL)  return root;         // base case: Is this necessary?
+	else if (data < root->data)  root->leftchild = deleteNode(root->leftchild, data);  // base case
+	else if (data > root->data)  root->rightchild = deleteNode(root->rightchild, data); // base case
+	else
+	{
+		if (root->leftchild == NULL && root->rightchild == NULL)
+		{
+			delete root;
+			root = NULL;
+		}
+		else if (root->rightchild == NULL)
+		{
+			Node* temp = root->leftchild;
+			delete root;
+			return temp;
+
+		}
+		else if (root->leftchild == NULL)
+		{
+			Node* temp = root->rightchild;
+			delete root;
+			return temp;
+		}
+		else
+		{
+			bstdata minRightChild = minimum(root->rightchild);
+			root->data = minRightChild;
+			root->rightchild = deleteNode(root->rightchild, minRightChild);
+		}
+	}
+
+	return root;
+}
+
 
 
 /************ access functions ************/
@@ -380,20 +430,6 @@ bstdata BST<bstdata>::maximum(Node* root) const
 
 
 
-
-template <typename bstdata>
-void BST<bstdata>::remove(bstdata data)
-{
-	assert(!isEmpty());
-	assert(search(data));      // isEmpty() is actually already enforced in this
-	deleteNode(root, data);
-}
-
-template <class bstdata>
-typename BST<bstdata>::Node* BST<bstdata>::deleteNode(Node* root, bstdata data)
-{
-
-}
 
 
 /************ additional functions ************/
