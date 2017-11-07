@@ -2,7 +2,7 @@
  * BST.h
  *
  *  Created on: Nov 2, 2017
- *      Author: KVTran
+ *      Author: Khang Vinh Tran, Tri Doan
  */
 
 # ifndef BST_H_
@@ -175,7 +175,7 @@ BST<bstdata>::BST(const BST &bst)
 	if (bst.root == NULL) root = NULL;        // WHAT'S THE DIFFERENCE BETWEEN USING . AND ->
 	else
 	{
-		root = new Node(bst.getRoot());
+		//root = new Node(bst.getRoot());
 		copyNode(bst.root);
 	}
 }
@@ -283,8 +283,8 @@ template <class bstdata>
 typename BST<bstdata>::Node* BST<bstdata>::deleteNode(Node* root, bstdata data)
 {
 	if (root == NULL)  return root;         // base case: Is this necessary?
-	else if (data < root->data)  root->leftchild = deleteNode(root->leftchild, data);  // base case
-	else if (data > root->data)  root->rightchild = deleteNode(root->rightchild, data); // base case
+	else if (data < root->data)  root->leftchild = deleteNode(root->leftchild, data);
+	else if (data > root->data)  root->rightchild = deleteNode(root->rightchild, data);
 	else
 	{
 		if (root->leftchild == NULL && root->rightchild == NULL)
@@ -363,7 +363,6 @@ void BST<bstdata>::getSize(Node* root, int& size) const
 template <typename bstdata>
 int BST<bstdata>::getHeight() const
 {
-	cout << "check here" << endl;
 	return getHeight(root);
 }
 
