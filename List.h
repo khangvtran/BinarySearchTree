@@ -10,7 +10,6 @@
 # include <cstddef> //for NULL
 # include <assert.h>
 # include <iostream>
-#include "Book.h"
 #include "HashTable.h"
 
 using namespace std;

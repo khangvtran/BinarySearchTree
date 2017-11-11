@@ -5,12 +5,11 @@
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-#include "Book.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include "HashTable.h"
-#include "List.h"
+#include "List.h"3
 
 Book::Book():title(""), author(""), price(0.0), isbn(0){};
 

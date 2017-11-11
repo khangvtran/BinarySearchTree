@@ -5,7 +5,6 @@
  *      Author: $$$$$$$$$$$$$$$$$$$$
  */
 
-#include "Book.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -16,8 +15,9 @@ int main()
 	HashTable hashObj;
 	cout << "**********Test Hash**********" << endl;
 	string key;
+	cout << "PLease enter book title and author: ";
 	getline(cin, key);
-	hashObj.hash(key);
+	cout << hashObj.hash(key);
 	//countBucket(index);
 	return 0;
 }
