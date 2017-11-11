@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <string>
 #include "HashTable.h"
+#include "List.h"
 
 Book::Book():title(""), author(""), price(0.0), isbn(0){};
 
@@ -59,7 +60,7 @@ void Book::set_price(double p) {
 /**Additional Functions*/
 
 
-friend ostream& operator<<(ostream& os, const Book& book)
+ostream& operator<<(ostream& os, const Book& book)
 {
 	os << book.title << " by " << book.author << endl;
 	os << "$" << book.price << endl;

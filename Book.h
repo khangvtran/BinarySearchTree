@@ -10,6 +10,8 @@
 
 #include <string>
 #include <ostream>
+#include "HashTable.h"
+#include "List.h"
 using namespace std;
 
 class Book {

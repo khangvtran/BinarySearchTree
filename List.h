@@ -10,6 +10,9 @@
 # include <cstddef> //for NULL
 # include <assert.h>
 # include <iostream>
+#include "Book.h"
+#include "HashTable.h"
+
 using namespace std;
 
 template <class listdata> //list stores generic listdata, not any specific C++ type
