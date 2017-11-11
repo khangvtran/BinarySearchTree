@@ -3,11 +3,10 @@
 
 #include <string>
 #include "List.h"
-#include "Book.h"
 #include <iostream>
 #include <cstddef> //for NULL
 #include <assert.h>
-
+#include "Book.h"
 using namespace std;
 
 class HashTable {
