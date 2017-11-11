@@ -51,7 +51,7 @@ int main()
 		cout << endl;
 
 
-		cout << "*************Test Minimum, Maximum, getRoot and getHeight **************"<< endl << endl;
+	cout << "*************Test Minimum, Maximum, getRoot and getHeight **************"<< endl << endl;
 		cout << "Should print out the minimum element" << endl;
 		cout << bst1.minimum() << endl;
 		cout << "Should print out the maximum element" << endl;
@@ -80,7 +80,7 @@ int main()
 		bst4.inOrderPrint(cout);
 		cout << endl;
 
-		cout << "*************Test remove and deleteNode and InOrderPrint*************" << endl;
+	cout << "*************Test remove and deleteNode and InOrderPrint*************" << endl;
 		bst2.inOrderPrint(cout);
 		cout << "Remove the leaf node (number 2)" << endl;
 		bst2.remove(2);
